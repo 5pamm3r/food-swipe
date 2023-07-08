@@ -1,5 +1,5 @@
 import axios from "axios";
-import { Post } from "./type";
+import { Post } from "../types/Post";
 
 export async function getRecipes() {
   try {
@@ -8,7 +8,7 @@ export async function getRecipes() {
 
     const extractedData = posts.map(post => {
       const { yoast_head_json } = post;
-      const postTitle = yoast_head_json.title; // Ajusta la estructura del título
+      const postTitle = yoast_head_json.title;
       const postDesc = yoast_head_json.description;
       const og_url = yoast_head_json.og_url;
       const og_image = yoast_head_json.og_image;
