@@ -16,6 +16,9 @@ module.exports = {
         '60vh': '60vh',
         '80vh': '80vh',
       },
+      backgroundColor: {
+        bgPrimary: '#1A202C'
+      }
     },
   },
   plugins: [],
