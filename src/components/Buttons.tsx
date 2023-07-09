@@ -1,29 +1,16 @@
-import Index from '@/types/Index'
-import React from 'react'
+import React from 'react';
 
 interface Props {
-  setIndex: React.Dispatch<React.SetStateAction<Index>>
+  modalActive: boolean;
+  setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
 }
-const Buttons = ({ setIndex }: Props): JSX.Element => {
-  const onBack = () => {
-    setIndex((prevState) => ({
-      ...prevState,
-      startIndex: prevState.startIndex - 4,
-      endIndex: prevState.endIndex - 4,
-    }))
-  }
-  const onNext = () => {
-    setIndex((prevState) => ({
-      ...prevState,
-      startIndex: prevState.startIndex + 4,
-      endIndex: prevState.endIndex + 4,
-    }))
+const Buttons = ({ modalActive, setModalActive }: Props): JSX.Element => {
+
+  const onOpenModal = () => {
+    setModalActive(!modalActive)
   }
   return (
-    <div className='flex justify-between p-4'>
-      <button className='border border-black p-2' type='button' onClick={onBack}>Back</button>
-      <button className='border border-black p-2' type='button' onClick={onNext}>Next</button>
-    </div>
+    <button className='p-2 m-auto w-2/4 mt-4 bg-red-500 rounded-lg' type='button' onClick={onOpenModal}>Favorites</button>
   )
 }
 
