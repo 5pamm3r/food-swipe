@@ -1,10 +1,10 @@
 import axios from "axios";
-import { Post } from "../types/Post";
+import { Recipe } from "../types/Recipe";
 
 export async function getRecipes() {
   try {
-    const response = await axios.get<Post[]>('https://www.cocinacaserayfacil.net/wp-json/wp/v2/posts?&per_page=100');
-    const posts: Post[] = response.data;
+    const response = await axios.get<Recipe[]>('https://www.cocinacaserayfacil.net/wp-json/wp/v2/posts?&per_page=100');
+    const posts: Recipe[] = response.data;
 
     const extractedData = posts.map(post => {
       const { yoast_head_json } = post;
