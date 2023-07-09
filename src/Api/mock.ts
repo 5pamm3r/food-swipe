@@ -1,10 +1,10 @@
 import mock from '@/mocks/recipes.json';
-import { Post } from '../types/Post';
+import { Recipe } from '../types/Recipe';
 
 export async function mockData() {
   try {
     const response = mock;
-    const posts: Post[] = response;
+    const posts: Recipe[] = response;
 
     const extractedData = posts.map(post => {
       const { yoast_head_json } = post;
