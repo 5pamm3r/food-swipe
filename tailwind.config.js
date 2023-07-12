@@ -15,11 +15,17 @@ module.exports = {
       height: {
         '60vh': '60vh',
         '80vh': '80vh',
+        '90vh': '90vh',
+        '95%': '95%',
+        '750': '750px',
       },
       backgroundColor: {
         bgPrimary: '#1A202C'
       }
     },
+    screens: {
+      'tall': {'raw': '(min-height: 800px)'},
+    }
   },
   plugins: [],
 }
