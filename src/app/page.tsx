@@ -5,10 +5,7 @@ import { Recipe } from "@/types/Recipe";
 import ItemRecipe from "@/components/ItemRecipe";
 import Buttons from "@/components/Buttons";
 import Index from "@/types/Index";
-import Draggable, {
-  DraggableData,
-  DraggableEvent,
-} from "react-draggable";
+import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { mockData } from "@/Api/mock";
 import Favorites from "@/components/Favorites";
 import { RecipeContext } from "@/context/recipeContext";
@@ -39,7 +36,10 @@ export default function Home() {
     fetchData();
   }, []);
 
-  const [index, setIndex] = useState<Index>({ startIndex: 0, endIndex: 1 });
+  const indexMap = {
+    startIndex: 0,
+    endIndex: 3,
+  }
   const [dragState, setDragState] = useState<DragState>({
     activeDrags: 0,
     deltaPosition: {
@@ -78,18 +78,15 @@ export default function Home() {
   const handleSwipeLeft = () => {
     const [currentItem, ...restItems] = recipes;
     setRecipes(restItems);
-    console.log("Descartado:", currentItem);
   };
 
   const handleSwipeRight = () => {
     const [currentItem, ...restItems] = recipes;
     setRecipes(restItems);
     saveFavorites([...favorites, currentItem]);
-    console.log("Añadido a favoritos:", currentItem);
   };
   const handleStop = () => {
     const { x } = dragState.deltaPosition;
-
     if (x > 200) {
       handleSwipeRight();
     } else if (x < -200) {
@@ -105,18 +102,18 @@ export default function Home() {
   };
   return (
     <main className="flex flex-col justify-between h-full w-full items-center">
-      <ul className="m-2 h-full">
+      <ul className="h-full w-full flex flex-col align-text justify-between relative">
         {recipes
-          .slice(index.startIndex, index.endIndex)
+          .slice(indexMap.startIndex, indexMap.endIndex)
           .map((recipe: Recipe, index: number) => (
-            <div className='flex flex-col justify-between h-full' key={index}>
+            <li className="absolute h-90vh" style={{ zIndex: indexMap.endIndex - index - 1 }} key={index}>
               <Draggable
                 {...dragHandlers}
                 onDrag={handleDrag}
                 position={dragState.controlledPosition}
                 onStop={handleStop}
               >
-                <div className="w-full h-full">
+                <div className="w-full px-2 pt-2">
                   <ItemRecipe
                     drag="draggable-handle"
                     title={recipe.yoast_head_json.og_title}
@@ -126,9 +123,12 @@ export default function Home() {
                   />
                 </div>
               </Draggable>
-              <Buttons modalActive={modalActive} setModalActive={setModalActive} />
-            </div>
+            </li>
           ))}
+        <Buttons
+          modalActive={modalActive}
+          setModalActive={setModalActive}
+        />
       </ul>
       {modalActive && (
         <Favorites modalActive={modalActive} setModalActive={setModalActive} />
