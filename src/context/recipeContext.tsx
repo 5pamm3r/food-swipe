@@ -1,6 +1,6 @@
 'use client'
 import { Recipe } from "@/types/Recipe";
-import React, { createContext, useState } from "react";
+import React, { createContext, useEffect, useState } from "react";
 
 interface Context {
   state: {
@@ -14,7 +14,6 @@ export const RecipeContext = createContext({} as Context);
 
 export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
   const [favorites, setFavorites] = useState<Recipe[]>([]);
-
   const saveFavorites = (recipes: Recipe[]) => {
     setFavorites(recipes);
   };

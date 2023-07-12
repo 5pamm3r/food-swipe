@@ -9,7 +9,7 @@ interface DragState {
   activeDrags: number;
   deltaPosition: { x: number };
 }
-const Favourites: FC<Props> = ({ modalActive, setModalActive }) => {
+const Favorites: FC<Props> = ({ modalActive, setModalActive }) => {
   const {
     state: { favorites },
     actions: { saveFavorites },
@@ -32,14 +32,15 @@ const Favourites: FC<Props> = ({ modalActive, setModalActive }) => {
       activeDrags: --dragState.activeDrags,
     }));
   };
+
   const removeFavorite = (id: string) => {
-    const newFavorites = favorites.filter((favorite) => favorite.id !== id)
+    const newFavorites = favorites.filter((recipe) => recipe.id.toString() !== id)
     saveFavorites(newFavorites);
   };
   const handleStop = (e: DraggableEvent, ui: DraggableData) => {
     const x = dragState.deltaPosition.x;
 
-    if (x < -200) {
+    if (x < -100) {
       removeFavorite(ui.node.id);
     }
   };
@@ -101,4 +102,4 @@ const Favourites: FC<Props> = ({ modalActive, setModalActive }) => {
   );
 };
 
-export default Favourites;
+export default Favorites;
