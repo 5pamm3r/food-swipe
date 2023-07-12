@@ -1,4 +1,5 @@
 export interface Recipe {
+  id: string;
   yoast_head_json: {
     og_title: string;
     og_description: string;
