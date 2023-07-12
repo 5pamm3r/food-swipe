@@ -10,7 +10,7 @@ const Buttons = ({ modalActive, setModalActive }: Props): JSX.Element => {
     setModalActive(!modalActive)
   }
   return (
-    <button className='p-2 m-auto w-2/4 mt-4 bg-red-500 rounded-lg' type='button' onClick={onOpenModal}>Favorites</button>
+    <button className='p-2 mx-auto absolute bottom-2 left-0 right-0 w-2/4  bg-red-500 rounded-lg' type='button' onClick={onOpenModal}>Favoritos</button>
   )
 }
 
