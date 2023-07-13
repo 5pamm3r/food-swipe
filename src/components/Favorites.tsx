@@ -36,10 +36,15 @@ const Favorites: FC<Props> = ({ modalActive, setModalActive }) => {
   const removeFavorite = (id: string) => {
     const newFavorites = favorites.filter((recipe) => recipe.id.toString() !== id)
     saveFavorites(newFavorites);
+    setDragState((prevState) => ({
+      ...prevState,
+      deltaPosition: {
+        x: 0,
+      },
+    }));
   };
   const handleStop = (e: DraggableEvent, ui: DraggableData) => {
     const x = dragState.deltaPosition.x;
-
     if (x < -100) {
       removeFavorite(ui.node.id);
     }
@@ -66,9 +71,9 @@ const Favorites: FC<Props> = ({ modalActive, setModalActive }) => {
       </button>
       <ul className="flex flex-col h-95% py-4 w-full overflow-y-scroll overflow-x-hidden gap-2 p-2">
         {favorites.length > 0 ? (
-          favorites.map((recipe, index) => (
+          favorites.map((recipe) => (
             <Draggable
-              key={index}
+              key={recipe.id}
               axis="x"
               {...dragHandlers}
               position={{ x: 0, y: 0 }}
@@ -79,13 +84,13 @@ const Favorites: FC<Props> = ({ modalActive, setModalActive }) => {
                 <div
                   className="w-20 h-20 bg-cover bg-center"
                   style={{
-                    backgroundImage: `url(${recipe.yoast_head_json.og_image?.[0]?.url})`,
+                    backgroundImage: `url(${recipe.imageUrl})`,
                   }}
                 ></div>
-                <h1>{recipe.yoast_head_json.og_title}</h1>
+                <h1>{recipe.title}</h1>
                 <a
-                  className="hover:underline"
-                  href={recipe.yoast_head_json.og_url}
+                  className="hover:underline block mx-auto w-fit"
+                  href={recipe.url}
                   rel="noopener noreferrer"
                   target="_blank"
                 >
