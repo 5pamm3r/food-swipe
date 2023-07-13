@@ -4,7 +4,6 @@ import { getRecipes } from "@/Api/recipes";
 import { Recipe } from "@/types/Recipe";
 import ItemRecipe from "@/components/ItemRecipe";
 import Buttons from "@/components/Buttons";
-import Index from "@/types/Index";
 import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
 import { mockData } from "@/Api/mock";
 import Favorites from "@/components/Favorites";
@@ -83,6 +82,7 @@ export default function Home() {
   const handleSwipeRight = () => {
     const [currentItem, ...restItems] = recipes;
     setRecipes(restItems);
+    if (favorites.find((recipe) => recipe.id === currentItem.id)) return;
     saveFavorites([...favorites, currentItem]);
   };
   const handleStop = () => {
@@ -116,10 +116,10 @@ export default function Home() {
                 <div className="w-full px-2 pt-2">
                   <ItemRecipe
                     drag="draggable-handle"
-                    title={recipe.yoast_head_json.og_title}
-                    description={recipe.yoast_head_json.og_description}
-                    imageUrl={recipe.yoast_head_json.og_image?.[0]?.url}
-                    link={recipe.yoast_head_json.og_url}
+                    title={recipe.title}
+                    description={recipe.description}
+                    imageUrl={recipe.imageUrl}
+                    link={recipe.url}
                   />
                 </div>
               </Draggable>
