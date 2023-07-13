@@ -1,5 +1,5 @@
 import mock from '@/mocks/recipes.json';
-import { Recipe } from '../types/Recipe';
+import { Recipe } from '../types/RawRecipe';
 
 export async function mockData() {
   try {
