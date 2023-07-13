@@ -1,4 +1,5 @@
 'use client'
+import { useLocalStorage } from "@/localStorage/useLocalStorage";
 import { Recipe } from "@/types/Recipe";
 import React, { createContext, useEffect, useState } from "react";
 
@@ -13,7 +14,7 @@ interface Context {
 export const RecipeContext = createContext({} as Context);
 
 export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [favorites, setFavorites] = useState<Recipe[]>([]);
+  const [favorites, setFavorites] = useLocalStorage("favorites", []);
   const saveFavorites = (recipes: Recipe[]) => {
     setFavorites(recipes);
   };
