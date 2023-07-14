@@ -15,25 +15,14 @@ interface DragState {
   controlledPosition: { x: number; y: number };
 }
 export default function Home() {
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
   const {
-    state: { favorites },
+    state: { favorites, originalRecipes },
     actions: { saveFavorites },
   } = useContext(RecipeContext);
-
+  const [recipes, setRecipes] = useState<Recipe[]>([]);
   useEffect(() => {
-    async function fetchData() {
-      try {
-        const recipes = await getRecipes();
-        // const recipes = await mockData();
-        setRecipes(recipes);
-      } catch (error) {
-        console.error(error);
-      }
-    }
-
-    fetchData();
-  }, []);
+    setRecipes(originalRecipes)
+  }, [originalRecipes])
 
   const indexMap = {
     startIndex: 0,
@@ -128,6 +117,7 @@ export default function Home() {
         <Buttons
           modalActive={modalActive}
           setModalActive={setModalActive}
+          setRecipes={setRecipes}
         />
       </ul>
       {modalActive && (
