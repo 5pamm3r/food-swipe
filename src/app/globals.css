@@ -3,5 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply max-w-lg mx-auto h-screen bg-bgPrimary overflow-hidden;
+  @apply max-w-md mx-auto h-screen bg-bgPrimary overflow-hidden;
 }
