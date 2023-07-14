@@ -4,12 +4,9 @@ export interface RawRecipe {
     og_title: string;
     og_description: string;
     og_url: string;
-    // og_image: {
-    //   width: number;
-    //   height: number;
-    //   url: string;
-    //   type: string;
-    // }[];
+    og_image: {
+      url: string;
+    }[];
   };
   _links: {
     'wp:featuredmedia': {
