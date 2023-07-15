@@ -3,7 +3,7 @@ import { RecipeContext } from '@/context/recipeContext';
 import Link from 'next/link'
 import React, { useContext, useEffect } from 'react'
 
-export function Login(): JSX.Element {
+export default function Login(): JSX.Element {
   const {
     actions: { setLogin, saveChef }
   } = useContext(RecipeContext);
