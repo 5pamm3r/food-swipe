@@ -19,6 +19,10 @@ module.exports = {
         '95%': '95%',
         '750': '750px',
       },
+      margin: {
+        'safeBottom': 'max(2rem, env(safe-area-inset-bottom))'
+      },
+      
       backgroundColor: {
         bgPrimary: '#1A202C'
       }

@@ -3,6 +3,5 @@
 @tailwind utilities;
 
 body {
-  @apply w-screen bg-bgPrimary overflow-hidden;
-  height: calc(100vh - env(safe-area-inset-bottom));
+  @apply w-screen bg-bgPrimary overflow-hidden h-screen;
 }
