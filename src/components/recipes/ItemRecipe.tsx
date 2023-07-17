@@ -1,4 +1,5 @@
 import React from "react";
+import { SkeletonItemRecipe } from "./skeleton";
 
 interface Props {
   title: string;

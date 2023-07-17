@@ -3,5 +3,6 @@
 @tailwind utilities;
 
 body {
-  @apply max-w-md mx-auto h-screen bg-bgPrimary overflow-hidden;
+  @apply w-screen bg-bgPrimary overflow-hidden;
+  height: calc(100vh - env(safe-area-inset-bottom));
 }

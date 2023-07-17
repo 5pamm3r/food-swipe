@@ -1,15 +1,14 @@
 'use client'
 import { getRecipes } from "@/Api/recipes";
 import { useLocalStorage } from "@/localStorage/useLocalStorage";
-import { RawRecipe } from "@/types/RawRecipe";
 import { Recipe } from "@/types/Recipe";
-import { get } from "http";
 import React, { createContext, useEffect, useState } from "react";
 
 interface Context {
   state: {
     favorites: Recipe[];
     originalRecipes: Recipe[];
+    chef: string;
   };
   actions: {
     saveFavorites: (recipes: Recipe[]) => void;
@@ -42,7 +41,6 @@ export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
         } else if (chef === 'Paulina') {
           recipes = await getRecipes({ chef });
         }
-        // const recipes = await mockData();
         setOriginalRecipes(recipes);
       } catch (error) {
         console.error(error);
@@ -52,6 +50,7 @@ export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
   const state: Context["state"] = {
     favorites,
     originalRecipes,
+    chef,
   };
   const actions: Context["actions"] = {
     saveFavorites,
