@@ -106,7 +106,7 @@ export default function Home() {
             .slice(indexMap.startIndex, indexMap.endIndex)
             .map((recipe: Recipe, index: number) => (
               <li
-                className="absolute h-90vh"
+                className="absolute"
                 style={{ zIndex: indexMap.endIndex - index - 1 }}
                 key={index}
               >
