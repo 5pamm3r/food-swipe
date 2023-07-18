@@ -2,6 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
+html {
+  height: -webkit-fill-available;
+}
 body {
   @apply w-screen bg-bgPrimary overflow-hidden h-screen;
+  height: -webkit-fill-available;
 }
