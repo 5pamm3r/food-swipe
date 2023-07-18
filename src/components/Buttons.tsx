@@ -20,7 +20,7 @@ const Buttons = ({ modalActive, setModalActive, setRecipes }: Props): JSX.Elemen
     setRecipes(originalRecipes)
   }
   return (
-    <div className='mx-auto mb-safeBottom absolute bottom-2 left-0 right-0 px-2 flex justify-evenly'>
+    <div className='mx-auto absolute bottom-2 left-0 right-0 px-2 flex justify-evenly'>
       <button className='w-1/4 p-2 bg-slate-500 rounded-lg' onClick={onReset}>Reiniciar</button>
       <button className='w-1/4 p-2  bg-red-500 rounded-lg' type='button' onClick={onOpenModal}>Favoritos</button>
       <Link href='/login' className='w-1/4 p-2 bg-slate-500 rounded-lg text-center'>Chefs</Link>
