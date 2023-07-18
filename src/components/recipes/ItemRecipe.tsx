@@ -1,5 +1,6 @@
 import React from "react";
 import { SkeletonItemRecipe } from "./skeleton";
+import Image from "next/image";
 
 interface Props {
   title: string;
@@ -20,11 +21,14 @@ export function ItemRecipe({
       className={`tall:h-750 w-full flex items-center justify-center touch-none ${drag} p-px bg-white rounded-2xl`}
     >
       <div className="h-full">
-        <div className="h-60vh">
-          <div
-            className="bg-center bg-cover h-full rounded-t-2xl"
-            style={{ backgroundImage: `url(${imageUrl})` }}
-          ></div>
+        <div className="h-60vh relative">
+          <Image
+            className="rounded-t-2xl"
+            src={imageUrl}
+            alt="recipe"
+            fill={true}
+            style={{ objectFit: "cover" }}
+          />
         </div>
         <div className="p-4">
           <p className="font-bold mb-2 line-clamp-1 tall:line-clamp-none">

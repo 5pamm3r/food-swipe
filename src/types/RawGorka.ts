@@ -1,4 +1,4 @@
-export interface RawRecipe {
+export interface RawGorka {
   id: string;
   yoast_head_json: {
     og_title: string;
