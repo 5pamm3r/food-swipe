@@ -20,7 +20,7 @@ module.exports = {
         '750': '750px',
       },
       margin: {
-        'safeBottom': 'max(2rem, env(safe-area-inset-bottom))'
+        'safeBottom': 'max(2.5rem, env(safe-area-inset-bottom))'
       },
       
       backgroundColor: {
