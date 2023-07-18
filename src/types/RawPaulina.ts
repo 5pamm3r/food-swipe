@@ -10,4 +10,19 @@ export interface RawPaulina {
   content: {
     rendered: string;
   }
+  _links: {
+    "wp:featuredmedia": {
+      href: string;
+    }[]
+  }
+}
+
+export interface ImageRecipe {
+  media_details: {
+    sizes: {
+      "medium": {
+        source_url: string;
+      }
+    }
+  }
 }

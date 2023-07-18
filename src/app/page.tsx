@@ -119,7 +119,7 @@ export default function Home() {
                 >
                   <div className="w-full px-2 pt-2">
                     <ItemRecipe
-                      drag="draggable-handle"
+                      drag="draggable-handle select-none"
                       title={recipe.title}
                       description={recipe.description}
                       imageUrl={recipe.imageUrl}
