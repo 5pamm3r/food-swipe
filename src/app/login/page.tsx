@@ -1,23 +1,23 @@
 'use client'
-import { RecipeContext } from '@/context/recipeContext';
-import Image from 'next/image';
+import { RecipeContext } from '@/context/recipeContext'
+import Image from 'next/image'
 import Link from 'next/link'
 import React, { useContext, useEffect } from 'react'
 import imgPaulina from '../../../public/assets/images/paulina.webp'
 import imgGorka from '../../../public/assets/images/gorka.webp'
 
-export default function Login(): JSX.Element {
+export default function Login(): React.JSX.Element {
   const {
     actions: { setLogin, saveChef }
-  } = useContext(RecipeContext);
+  } = useContext(RecipeContext)
 
   const onClickGorka = () => {
-    setLogin((prevState) => !prevState);
-    saveChef('Gorka');
+    setLogin((prevState) => !prevState)
+    saveChef('Gorka')
   }
 
   const onClickPaulina = () => {
-    setLogin((prevState) => !prevState);
+    setLogin((prevState) => !prevState)
     saveChef('Paulina')
   }
 

@@ -18,7 +18,7 @@ export interface RawGorka {
 export interface ImageRecipe {
   media_details: {
     sizes: {
-      "schema-slider": {
+      'schema-slider': {
         source_url: string;
       }
     }

@@ -11,7 +11,7 @@ export interface RawPaulina {
     rendered: string;
   }
   _links: {
-    "wp:featuredmedia": {
+    'wp:featuredmedia': {
       href: string;
     }[]
   }
@@ -20,7 +20,7 @@ export interface RawPaulina {
 export interface ImageRecipe {
   media_details: {
     sizes: {
-      "medium": {
+      'medium': {
         source_url: string;
       }
     }

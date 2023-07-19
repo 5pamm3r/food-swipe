@@ -1,135 +1,136 @@
-"use client";
-import React, { useContext, useEffect, useState } from "react";
-import { Recipe } from "@/types/Recipe";
-import ItemRecipe from "@/components/recipes/ItemRecipe";
-import Buttons from "@/components/Buttons";
-import Draggable, { DraggableData, DraggableEvent } from "react-draggable";
-import Favorites from "@/components/favorites/Favorites";
-import { RecipeContext } from "@/context/recipeContext";
-import { SkeletonItemRecipe } from "@/components/recipes/skeleton";
-import { useRouter } from "next/navigation";
+'use client'
+import React, { useContext, useEffect, useState } from 'react'
+import { Recipe } from '@/types/Recipe'
+import ItemRecipe from '@/components/recipes/ItemRecipe'
+import Buttons from '@/components/Buttons'
+import Draggable, { DraggableData, DraggableEvent } from 'react-draggable'
+import Favorites from '@/components/favorites/Favorites'
+import { RecipeContext } from '@/context/recipeContext'
+import { SkeletonItemRecipe } from '@/components/recipes/skeleton'
+import { useRouter } from 'next/navigation'
 
 interface DragState {
   activeDrags: number;
   deltaPosition: { x: number; y: number };
   controlledPosition: { x: number; y: number };
 }
-export default function Home() {
-  const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
+export default function Home(): React.JSX.Element {
+  const router = useRouter()
+  const [loading, setLoading] = useState<boolean>(true)
   const {
     state: { favorites, originalRecipes, chef },
-    actions: { saveFavorites },
-  } = useContext(RecipeContext);
-  const [recipes, setRecipes] = useState<Recipe[]>([]);
+    actions: { saveFavorites }
+  } = useContext(RecipeContext)
+  const [recipes, setRecipes] = useState<Recipe[]>([])
   useEffect(() => {
     setRecipes(originalRecipes)
-    setLoading(false);
+    setLoading(false)
     if (!chef) {
       router.push('/login')
     }
-  }, [originalRecipes]);
-
+  }, [originalRecipes])
 
   const indexMap = {
     startIndex: 0,
-    endIndex: 3,
-  };
+    endIndex: 3
+  }
   const [dragState, setDragState] = useState<DragState>({
     activeDrags: 0,
     deltaPosition: {
       x: 0,
-      y: 0,
+      y: 0
     },
     controlledPosition: {
       x: 0,
-      y: 0,
-    },
-  });
+      y: 0
+    }
+  })
   const onStart = () => {
     setDragState((prevState) => ({
       ...prevState,
-      activeDrags: ++dragState.activeDrags,
-    }));
-  };
+      activeDrags: ++dragState.activeDrags
+    }))
+  }
   const onStop = () => {
     setDragState((prevState) => ({
       ...prevState,
-      activeDrags: --dragState.activeDrags,
-    }));
-  };
+      activeDrags: --dragState.activeDrags
+    }))
+  }
   const handleDrag = (e: DraggableEvent, ui: DraggableData) => {
-    const { x, y } = dragState.deltaPosition;
+    const { x, y } = dragState.deltaPosition
     setDragState((prevState) => ({
       ...prevState,
       deltaPosition: {
         x: x + ui.deltaX,
-        y: y + ui.deltaY,
-      },
-    }));
-  };
-  const [modalActive, setModalActive] = useState<boolean>(false);
-  const dragHandlers = { onStart: onStart, onStop: onStop };
+        y: y + ui.deltaY
+      }
+    }))
+  }
+  const [modalActive, setModalActive] = useState<boolean>(false)
+  const dragHandlers = { onStart, onStop }
   const handleSwipeLeft = () => {
-    const [currentItem, ...restItems] = recipes;
-    setRecipes(restItems);
-  };
+    const [currentItem, ...restItems] = recipes
+    setRecipes(restItems)
+  }
 
   const handleSwipeRight = () => {
-    const [currentItem, ...restItems] = recipes;
-    setRecipes(restItems);
-    if (favorites.find((recipe) => recipe.id === currentItem.id)) return;
-    saveFavorites([...favorites, currentItem]);
-  };
+    const [currentItem, ...restItems] = recipes
+    setRecipes(restItems)
+    if (favorites.find((recipe) => recipe.id === currentItem.id)) return
+    saveFavorites([...favorites, currentItem])
+  }
   const handleStop = () => {
-    const { x } = dragState.deltaPosition;
+    const { x } = dragState.deltaPosition
     if (x > 100) {
-      handleSwipeRight();
+      handleSwipeRight()
     } else if (x < -100) {
-      handleSwipeLeft();
+      handleSwipeLeft()
     }
     setDragState((prevState) => ({
       ...prevState,
       deltaPosition: {
         x: 0,
-        y: 0,
-      },
-    }));
-  };
+        y: 0
+      }
+    }))
+  }
   return (
-    <main className="flex flex-col justify-between h-full w-full max-w-md mx-auto items-center">
-      <ul className="h-full w-full flex flex-col align-text justify-between relative">
-        {loading ? (
-          <SkeletonItemRecipe />
-        ) : (
-          recipes
-            .slice(indexMap.startIndex, indexMap.endIndex)
-            .map((recipe: Recipe, index: number) => (
-              <li
-                className="absolute"
-                style={{ zIndex: indexMap.endIndex - index - 1 }}
-                key={index}
-              >
-                <Draggable
-                  {...dragHandlers}
-                  onDrag={handleDrag}
-                  position={dragState.controlledPosition}
-                  onStop={handleStop}
-                  cancel="a"
+    <main className='flex flex-col justify-between h-full w-full max-w-md mx-auto items-center'>
+      <ul className='h-full w-full flex flex-col align-text justify-between relative'>
+        {loading
+          ? (
+            <SkeletonItemRecipe />
+          )
+          : (
+            recipes
+              .slice(indexMap.startIndex, indexMap.endIndex)
+              .map((recipe: Recipe, index: number) => (
+                <li
+                  className='absolute'
+                  style={{ zIndex: indexMap.endIndex - index - 1 }}
+                  key={index}
                 >
-                  <div className="w-full px-2 pt-2">
-                    <ItemRecipe
-                      drag="draggable-handle select-none"
-                      title={recipe.title}
-                      description={recipe.description}
-                      imageUrl={recipe.imageUrl}
-                      link={recipe.url}
-                    />
-                  </div>
-                </Draggable>
-              </li>
-            ))
-        )}
+                  <Draggable
+                    {...dragHandlers}
+                    onDrag={handleDrag}
+                    position={dragState.controlledPosition}
+                    onStop={handleStop}
+                    cancel='a'
+                  >
+                    <div className='w-full px-2 pt-2'>
+                      <ItemRecipe
+                        drag='draggable-handle select-none'
+                        title={recipe.title}
+                        description={recipe.description}
+                        imageUrl={recipe.imageUrl}
+                        link={recipe.url}
+                      />
+                    </div>
+                  </Draggable>
+                </li>
+              ))
+          )}
         <Buttons
           modalActive={modalActive}
           setModalActive={setModalActive}
@@ -140,5 +141,5 @@ export default function Home() {
         <Favorites modalActive={modalActive} setModalActive={setModalActive} />
       )}
     </main>
-  );
+  )
 }

@@ -1,6 +1,6 @@
-import { ImageRecipe, RawGorka } from "@/types/RawGorka";
-import { Recipe } from "@/types/Recipe";
-import axios from "axios";
+import { ImageRecipe, RawGorka } from '@/types/RawGorka'
+import { Recipe } from '@/types/Recipe'
+import axios from 'axios'
 
 export function parseGorka(rawRecipe: RawGorka[]): Recipe[] {
   // const fetchImage = async (url: string, recipe: RawGorka): Promise<string> => {
@@ -20,7 +20,6 @@ export function parseGorka(rawRecipe: RawGorka[]): Recipe[] {
   // };
 
   const promises = rawRecipe.map((recipe) => {
-
     // const imageUrl = await fetchImage(recipe._links['wp:featuredmedia'][0].href, recipe);
 
     return {
@@ -29,10 +28,10 @@ export function parseGorka(rawRecipe: RawGorka[]): Recipe[] {
       description: recipe.yoast_head_json.og_description,
       url: recipe.yoast_head_json.og_url,
       // imageUrl: imageUrl,
-      imageUrl: recipe.yoast_head_json.og_image?.[0]?.url,
-    };
-  });
+      imageUrl: recipe.yoast_head_json.og_image?.[0]?.url
+    }
+  })
 
-  const recipes = promises;
-  return recipes;
+  const recipes = promises
+  return recipes
 }

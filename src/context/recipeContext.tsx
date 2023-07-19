@@ -1,8 +1,8 @@
 'use client'
-import { getRecipes } from "@/Api/recipes";
-import { useLocalStorage } from "@/localStorage/useLocalStorage";
-import { Recipe } from "@/types/Recipe";
-import React, { createContext, useEffect, useState } from "react";
+import { getRecipes } from '@/Api/recipes'
+import { useLocalStorage } from '@/localStorage/useLocalStorage'
+import { Recipe } from '@/types/Recipe'
+import React, { createContext, useEffect, useState } from 'react'
 
 interface Context {
   state: {
@@ -16,15 +16,15 @@ interface Context {
     saveChef: (chef: string) => void;
   };
 }
-export const RecipeContext = createContext({} as Context);
+export const RecipeContext = createContext({} as Context)
 
 export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
-  const [favorites, setFavorites] = useLocalStorage("favorites", []);
+  const [favorites, setFavorites] = useLocalStorage('favorites', [])
   const saveFavorites = (recipes: Recipe[]) => {
-    setFavorites(recipes);
-  };
-  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([]);
-  const [login, setLogin] = useState<boolean>(false);
+    setFavorites(recipes)
+  }
+  const [originalRecipes, setOriginalRecipes] = useState<Recipe[]>([])
+  const [login, setLogin] = useState<boolean>(false)
   const [chef, setChef] = useState<string>('')
   const saveChef = (chef: string) => {
     setChef(chef)
@@ -37,32 +37,32 @@ export const RecipeProvider = ({ children }: { children: React.ReactNode }) => {
         }
         let recipes: Recipe[] = []
         if (chef === 'Gorka') {
-          recipes = await getRecipes({ chef });
+          recipes = await getRecipes({ chef })
         } else if (chef === 'Paulina') {
-          recipes = await getRecipes({ chef });
+          recipes = await getRecipes({ chef })
         }
-        setOriginalRecipes(recipes);
+        setOriginalRecipes(recipes)
       } catch (error) {
-        console.error(error);
+        console.error(error)
       }
     })()
-  }, [login, chef]);
-  const state: Context["state"] = {
+  }, [login, chef])
+  const state: Context['state'] = {
     favorites,
     originalRecipes,
-    chef,
-  };
-  const actions: Context["actions"] = {
+    chef
+  }
+  const actions: Context['actions'] = {
     saveFavorites,
     setLogin,
-    saveChef,
-  };
+    saveChef
+  }
 
   return (
     <RecipeContext.Provider value={{ state, actions }}>
       {children}
     </RecipeContext.Provider>
-  );
-};
+  )
+}
 
-export default RecipeProvider;
+export default RecipeProvider

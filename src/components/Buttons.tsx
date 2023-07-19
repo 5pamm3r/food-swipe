@@ -1,17 +1,17 @@
-import { RecipeContext } from '@/context/recipeContext';
-import { Recipe } from '@/types/Recipe';
-import Link from 'next/link';
-import React, { useContext } from 'react';
+import { RecipeContext } from '@/context/recipeContext'
+import { Recipe } from '@/types/Recipe'
+import Link from 'next/link'
+import React, { useContext } from 'react'
 
 interface Props {
   modalActive: boolean;
   setModalActive: React.Dispatch<React.SetStateAction<boolean>>;
   setRecipes: React.Dispatch<React.SetStateAction<Recipe[]>>;
 }
-const Buttons = ({ modalActive, setModalActive, setRecipes }: Props): JSX.Element => {
+const Buttons = ({ modalActive, setModalActive, setRecipes }: Props): React.JSX.Element => {
   const {
     state: { originalRecipes }
-  } = useContext(RecipeContext);
+  } = useContext(RecipeContext)
 
   const onOpenModal = () => {
     setModalActive(!modalActive)
